@@ -1,0 +1,121 @@
+ <div class="row document-page">
+    <div class="row gtl-top-header text-center">
+        <span class="gtl-title-border top"></span>
+        <span class="gtl-top-title"> {{assetArray.document_title_M}} </span>
+        <span class="gtl-title-border bottom"></span>
+    </div>
+    <div *ngIf="!uploadProofProcess" class="verify-account">        
+        <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+            <div class="document-sub-title font-slab color-black text-center">
+                <p> {{assetArray.document_header1_M}} </p>
+            </div> 
+            <div class="document-content font-sans color-black text-left">
+                <div [innerHTML]="assetArray.document_header1_text_M | mySafeHTML"></div>
+            </div> 
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+            <div class="document-sub-title font-slab color-black text-center">
+                <p> {{assetArray.document_header2_M}} </p>
+            </div> 
+            <div class="document-content font-sans color-black text-left">
+                <div [innerHTML]="assetArray.document_header2_text_M | mySafeHTML"></div>
+            </div> 
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-center">
+            <button type="button" (click)="documentProceed()" class="btn btn-primary btn-lg btn-block custom-btn proceed-btn gtl-btn-background">
+                {{assetArray.document_proceed_btn_M}}
+            </button>
+        </div>
+    </div>
+    <div *ngIf="uploadProofProcess" class="upload-proof"> 
+        <form class="form-horizontal" role="form" >       
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+                    <div class="document-sub-title font-slab color-black text-center">
+                        <p> {{assetArray.document_upload_id_header_M}} </p>
+                    </div> 
+                    <div class="document-content font-sans color-black text-left">
+                        <div [innerHTML]="assetArray.document_upload_id_text_M | mySafeHTML"></div>
+                    </div> 
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-left">
+                    <my-file-upload (fileData)="allFileData($event)"
+                         [chooseBtn]="assetArray.document_upload_address_choose_file_btn_M"
+                         [fileID]="'id'" [fileLabelText]="assetArray.document_upload_id_no_file_text_M"
+                         [labelId]="'upload-file-id'" [fileSize]="3145728" (fileValid)="checkFileValid($event)"></my-file-upload>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-center">
+                    <button type="button" class="btn btn-primary btn-lg btn-block custom-btn proceed-btn gtl-btn-background" (click)="uploadProofDoc('id')">
+                        {{assetArray.document_upload_id_file_btn_M}}
+                    </button>
+                    <div class="file-size-error" *ngIf="idProofValid.fileSize == false" [innerHTML]="assetArray.document_upload_file_size_error_M | mySafeHTML"></div>
+                    <!-- <div class="file-size-error" *ngIf="idProofValid.fileType == false"> Please upload file type JPG, PNG, GIF or PDF </div> -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+                    <div class="document-content-status font-slab text-left"> {{idStatusLabel}} </div> 
+                </div>
+                <div class="clear"></div>
+                <div class="gtl-content-bottom-border proof-bottom-border"></div>
+            </div>
+    
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+                    <div class="document-sub-title font-slab color-black text-center">
+                        <p> {{assetArray.document_upload_address_header_M}} </p>
+                    </div> 
+                    <div class="document-content font-sans color-black text-left">
+                        <div [innerHTML]="assetArray.document_upload_address_text_M | mySafeHTML"></div>
+                    </div> 
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-left">
+                    <my-file-upload (fileData)="allFileData($event)" 
+                        [chooseBtn]="assetArray.document_upload_address_choose_file_btn_M" 
+                        [fileID]="'address'" [fileLabelText]="assetArray.document_upload_address_no_file_text_M" 
+                        [labelId]="'upload-file-address'" [fileSize]="3145728" (fileValid)="checkFileValid($event)"></my-file-upload>
+    
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-center">
+                    <button type="button" class="btn btn-primary btn-lg btn-block custom-btn proceed-btn gtl-btn-background" (click)="uploadProofDoc('address')">
+                        {{assetArray.document_upload_address_file_btn_M}}
+                    </button>
+                    <div class="file-size-error" *ngIf="addressProofValid.fileSize == false" [innerHTML]="assetArray.document_upload_file_size_error_M | mySafeHTML"></div>
+                   <!-- <div class="file-size-error" *ngIf="addressProofValid.fileType == false"> Please upload file type JPG, PNG, GIF or PDF </div>  -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+                    <div class="document-content-status font-slab text-left"> {{addressStatusLabel}} </div> 
+                </div>
+                <div class="clear"></div>
+                <div class="gtl-content-bottom-border proof-bottom-border"></div>
+            </div>
+    
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+                    <div class="document-sub-title font-slab color-black text-center">
+                        <p> {{assetArray.document_upload_other_header_M}} </p>
+                    </div> 
+                    <div class="document-content font-sans color-black text-left">
+                        <div [innerHTML]="assetArray.document_upload_other_text_M | mySafeHTML"></div>
+                    </div> 
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-left">
+                    <my-file-upload (fileData)="allFileData($event)" 
+                        [chooseBtn]="assetArray.document_upload_other_choose_file_btn_M" 
+                        [fileID]="'other'" [fileLabelText]="assetArray.document_upload_other_no_file_text_M" 
+                        [labelId]="'upload-file-other'" [fileSize]="3145728" (fileValid)="checkFileValid($event)"></my-file-upload>
+    
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-xs-offset-1 text-center">
+                    <button type="button" class="btn btn-primary btn-lg btn-block custom-btn proceed-btn gtl-btn-background" (click)="uploadProofDoc('other')">
+                        {{assetArray.document_upload_other_file_btn_M}}
+                    </button>
+                    <div class="file-size-error" *ngIf="otherProofValid.fileSize == false" [innerHTML]="assetArray.document_upload_file_size_error_M | mySafeHTML"></div>
+                    <!-- <div class="file-size-error" *ngIf="otherProofValid.fileType == false"> Please upload file type JPG, PNG, GIF or PDF </div> -->
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 plr20">
+                    <div class="document-content-status font-slab text-left"> {{otherStatusLabel}} </div> 
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<my-message-modal [messageData]="uploadMessage" (messageOk)="uploadSuccCallback($event)" [messageShowHide]="uploadMsgShow"></my-message-modal>

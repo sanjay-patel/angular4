@@ -1,0 +1,40 @@
+.img-info {
+    background-color: rgba(0,0,0,0.85);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 0px 22px;
+    .btn-play-now {
+        background-color: #fc0 !important;
+        position:relative;
+        margin-top: 25%;
+        padding: 6px 25px !important;
+        font-size: 15px !important;
+        color: black !important;
+        border-color: transparent !important;
+    }
+    .btn-information {
+        background-color: #363636 !important;
+        position:relative;
+        margin-top: 10%;
+        padding: 6px 15px !important;
+        font-size: 15px !important;
+        color: #fff !important;
+        border-color: transparent !important;
+    }
+}
+.game-img {
+    border: 2px solid #fff;
+}
+.is-new-ribbon {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    img {
+        width: 70px;
+    }
+}
+.img-info {
+    display: none;
+}

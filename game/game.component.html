@@ -1,0 +1,10 @@
+<div class="img-info" #imgInfo>
+    <button type="button" class="btn btn-block btn-warning btn-play-now" (click)="playNowBtn()"> {{assetArray.game_thumbnail_playnow_btn_M}} </button>
+    <button type="button" class="btn btn-block btn-warning btn-information" (click)="informationBtn()"> {{assetArray.game_thumbnail_information_btn_M}} </button>
+</div>
+<div class="is-new-ribbon">
+    <img *ngIf="gamedata.isNew" src="{{assetArray.game_play_new_li_M}}" class="img-responsive">
+    <img *ngIf="gamedata.isJackpot" src="{{assetArray.game_play_jackpot_li_M}}" class="img-responsive">
+</div>
+<img src="{{gamedata.small_banner}}" class="img-responsive game-img" (click)="ImgOnClick(imgInfo)" >
+
